@@ -30,10 +30,25 @@ const contact = new Contact({
   occupation: "Software Engineer",
 });
 
-// contact.save()
+// GET REQUESTS
 
 //HOMEPAGE GET - returns Welcome Home on page
 app.get("/", (req, res) => res.send("Welcome Home!"));
+
+// GET SINGULAR CONTACT - returns one contact by their ID
+app.get("/api/contacts/:id", async (req, res) => {
+  try {
+    const contactId = req.params.id;
+    const contact = await Contact.findById(contactId);
+    if (!contact) {
+      res.status(404).json({ error: "User not found" });
+    }else{
+      res.json({contact})
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong!" });
+  }
+});
 
 //GET REQ for CONTACTS - Returns all contacts
 app.get("/api/contacts", async (req, res) => {
@@ -45,19 +60,23 @@ app.get("/api/contacts", async (req, res) => {
   }
 });
 
+// POST REQUESTS
+
 //HOMEPAGE POST - Dummy POST req
 app.post("/", (req, res) => res.send("This is POST requesssst"));
 
 //POST REQ for individual contact
-app.post("/api/contacts", async(req, res) => {
+app.post("/api/contacts", async (req, res) => {
   const contact = new Contact(req.body);
   try {
-    await contact.save()
-    res.status(201).json({contact})
+    await contact.save();
+    res.status(201).json({ contact });
   } catch (error) {
-    res.status(400).json({error: "Unable to create Contact"})
+    res.status(400).json({ error: "Unable to create Contact" });
   }
 });
+
+// Start server async function - connects to mongodb
 
 const startServer = async () => {
   try {
