@@ -1,11 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Contact = require("./Models/contactModel")
-const dotenv = require("dotenv")
-dotenv.config()
+const Contact = require("./Models/contactModel");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const PORT = process.env.PORT;
-const connectionString = process.env.MONGOOSE_URL
+const connectionString = process.env.MONGOOSE_URL;
 
 mongoose.set("strictQuery", false);
 const app = express();
@@ -27,22 +27,36 @@ const contact = new Contact({
   city: "New York",
   state: "NY",
   zipCode: "11111",
-  occupation: "Software Engineer"
-})
+  occupation: "Software Engineer",
+});
+
+// contact.save()
 
 //HOMEPAGE GET - returns Welcome Home on page
-app.get("/", (req, res) => res.send(contact));
+app.get("/", (req, res) => res.send("Welcome Home!"));
 
 //GET REQ for CONTACTS - Returns all contacts
-app.get("/api/contacts", (req, res) => res.send({ "Peoples Data": people }));
+app.get("/api/contacts", async (req, res) => {
+  try {
+    const result = await Contact.find();
+    res.send({ contacts: result });
+  } catch (error) {
+    res.status(500).json({ error: "There was an error that occured" });
+  }
+});
 
 //HOMEPAGE POST - Dummy POST req
 app.post("/", (req, res) => res.send("This is POST requesssst"));
 
 //POST REQ for individual contact
-app.post("/api/contacts", (req, res) => {
-  console.log(req.body);
-  res.send(req.body);
+app.post("/api/contacts", async(req, res) => {
+  const contact = new Contact(req.body);
+  try {
+    await contact.save()
+    res.status(201).json({contact})
+  } catch (error) {
+    res.status(400).json({error: "Unable to create Contact"})
+  }
 });
 
 const startServer = async () => {
@@ -58,4 +72,4 @@ const startServer = async () => {
   }
 };
 
-startServer()
+startServer();
