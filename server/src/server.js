@@ -30,7 +30,7 @@ const contact = new Contact({
   occupation: "Software Engineer",
 });
 
-// GET REQUESTS
+                  // GET REQUESTS
 
 //HOMEPAGE GET - returns Welcome Home on page
 app.get("/", (req, res) => res.send("Welcome Home!"));
@@ -60,7 +60,7 @@ app.get("/api/contacts", async (req, res) => {
   }
 });
 
-// POST REQUESTS
+                    // POST REQUESTS
 
 //HOMEPAGE POST - Dummy POST req
 app.post("/", (req, res) => res.send("This is POST requesssst"));
@@ -75,6 +75,35 @@ app.post("/api/contacts", async (req, res) => {
     res.status(400).json({ error: "Unable to create Contact" });
   }
 });
+
+
+                        //PUT REQUESTS
+
+// PUT req for individual contact - edit contact info
+app.put("/api/contacts/:id", async (req, res) => {
+  try {
+    const contactId = req.params.id
+    const result = await Contact.replaceOne({_id: contactId}, req.body)
+    res.json({updatedCount: result.modifiedCount})
+  } catch (error) {
+    res.status(500).json({error: "Something went wrong!"})
+  }
+})
+
+
+                          //DELETE REQUEST
+  
+  // Delete Req - deletes contact
+
+  app.delete("/api/contacts/:id", async (req, res) => {
+    try {
+      const contactId = req.params.id
+      const result = await Contact.deleteOne({_id: contactId})
+      res.json({deletedCount: result.deletedCount})
+    } catch (error) {
+      res.status(500).json({error: "Something went wrong deleting contact"})
+    }
+  })
 
 // Start server async function - connects to mongodb
 
