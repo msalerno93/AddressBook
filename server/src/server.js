@@ -1,16 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const Contact = require("./Models/contactModel");
+const cors = require("cors")
 const dotenv = require("dotenv");
 dotenv.config();
 
 const PORT = process.env.PORT;
 const connectionString = process.env.MONGOOSE_URL;
 
+
 mongoose.set("strictQuery", false);
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 
 const people = [
   { name: "John", industry: "Tech" },
