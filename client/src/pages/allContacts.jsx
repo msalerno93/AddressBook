@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { contacts } from "../assets/mockData";
+import { Link } from "react-router-dom";
+// import { contacts } from "../assets/mockData";
 
 const AllContacts = () => {
 
@@ -10,9 +11,8 @@ const AllContacts = () => {
     const url = `http://localhost:3005/api/contacts`;
     const response = await fetch(url);
     const responseJson = await response.json();
-    console.log(responseJson.contacts);
     if (responseJson.contacts) {
-      setContact(responseJson.contacts);
+      setContact(responseJson.contacts)
     }
   };
 
@@ -37,9 +37,9 @@ const AllContacts = () => {
         {contact.map(
           ({ firstName, lastName, phoneNumber, city, state, _id }) => {
             return (
+              <Link key={_id} to={`/contact/${_id}`}>
               <div
                 className="shadow-md bg-purple-600 mx-10 my-3 shadow-black rounded-3xl py-5 hover:scale-110 duration-200"
-                key={_id}
               >
                 <p className="text-2xl font-bold">
                   {firstName} {lastName}
@@ -49,6 +49,7 @@ const AllContacts = () => {
                   {city}, {state}
                 </p>
               </div>
+              </Link>
             );
           }
         )}
