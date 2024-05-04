@@ -53,46 +53,56 @@ export const contacts = [
     {
       id: 1,
       name: "First Name",
-      input: "text"
+      input: "text",
+      value: "firstName"
     },
     {
       id: 2,
       name: "Last Name",
-      input: "text"
+      input: "text",
+      value: "lastName"
+
     },
     {
       id: 3,
       name: "Phone Number",
-      input: "text"
+      input: "text",
+      value: "phoneNumber"
     },
     {
       id: 4,
       name: "Email",
-      input: "email"
+      input: "email",
+      value: "email"
     },
     {
       id: 5,
       name: "Street",
-      input: "text"
+      input: "text",
+      value: "street"
     },
     {
       id: 6,
       name: "City",
-      input: "text"
+      input: "text",
+      value: "city"
     },
     {
       id: 7,
       name: "State",
-      input: "text"
+      input: "text",
+      value: "state"
     },
     {
       id: 8,
       name: "Zip Code",
-      input: "text"
+      input: "text",
+      value: "zipCode"
     },
     {
       id: 9,
       name: "Occupation",
-      input: "text"
+      input: "text",
+      value: "occupation"
     },
   ]
