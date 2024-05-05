@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const ContactShowPage = () => {
   const [contact, setContact] = useState([]);
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const url = `http://localhost:3005/api/contacts/${id}`;
 
@@ -16,7 +16,7 @@ const ContactShowPage = () => {
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
-        navigate('/allcontacts')
+        navigate("/allcontacts");
       })
       .catch((e) => console.log(e));
   };
