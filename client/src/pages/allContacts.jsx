@@ -26,7 +26,7 @@ const AllContacts = () => {
         Your Contact List
       </div>
       <Link to="/addcontact">
-      <button className="rounded-2xl text-xl font-bold mx-[40%] bg-purple-600 px-2 py-2 text-black hover:bg-purple-700">Add Contact</button>
+      <button className="rounded-2xl text-xl font-bold md:w-[15%] mx-[20%] w-[50%] bg-purple-600 px-2 py-2 text-black hover:bg-purple-700">Add Contact</button>
       </Link>
       </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 text-center pt-16">

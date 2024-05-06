@@ -1,8 +1,10 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import EditModal from "../components/EditModal";
 
 const ContactShowPage = () => {
   const [contact, setContact] = useState([]);
+  const [showModal, setShowModal] = useState(false)
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -21,6 +23,19 @@ const ContactShowPage = () => {
       .catch((e) => console.log(e));
   };
 
+  const editContact = () => {
+    fetch(url, {
+      method: "PUT",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+        navigate(`/contact/${id}`);
+      })
+      .catch((e) => console.log(e));
+  };
+
   const getSingleContact = async () => {
     const response = await fetch(url);
     const responseJson = await response.json();
@@ -34,6 +49,7 @@ const ContactShowPage = () => {
   }, []);
 
   return (
+    <Fragment>
     <div className="pt-10">
       <Link
         to="/allcontacts"
@@ -55,7 +71,7 @@ const ContactShowPage = () => {
               {contact.city} {contact.state} {contact.zipCode}
             </p>
           </div>
-          <button className="rounded-xl text-xl font-bold mx-5 bg-purple-600 py-2 px-5 text-black hover:bg-purple-700">
+          <button onClick={() => {setShowModal(true)}} className="rounded-xl text-xl font-bold mx-5 bg-purple-600 py-2 px-5 text-black hover:bg-purple-700">
             Edit
           </button>{" "}
           <button
@@ -67,6 +83,25 @@ const ContactShowPage = () => {
         </div>
       </div>
     </div>
+    <EditModal isVisible={showModal} onClose={() => setShowModal(false)}>
+      <div className="text-center w-full">
+      <h1 className="text-2xl font-bold">Edit Contact</h1>
+      <div className="grid grid-cols-2 gap-1 p-5">
+        <p className="font-bold text-xl pt-2">First Name: </p> <input className="mt-2 lg:w-[60%] w-[100%] bg-slate-100 rounded-lg pl-3 font-semibold" type="text" value={contact.firstName} />
+        <p className="font-bold text-xl pt-2">Last Name: </p> <input className="mt-2 lg:w-[60%] w-[100%] bg-slate-100 rounded-lg pl-3 font-semibold" type="text" value={contact.lastName}/>
+        <p className="font-bold text-xl pt-2">Phone Number: </p> <input className="mt-2 lg:w-[60%] w-[100%] bg-slate-100 rounded-lg pl-3 font-semibold" type="text" value={contact.phoneNumber} />
+        <p className="font-bold text-xl pt-2">Email: </p> <input className="mt-2 lg:w-[60%] w-[100%] bg-slate-100 rounded-lg pl-3 font-semibold" type="text" value={contact.email} />
+        <p className="font-bold text-xl pt-2">Street: </p> <input className="mt-2 lg:w-[60%] w-[100%] bg-slate-100 rounded-lg pl-3 font-semibold" type="text" value={contact.street} />
+        <p className="font-bold text-xl pt-2">City: </p> <input className="mt-2 lg:w-[60%] w-[100%] bg-slate-100 rounded-lg pl-3 font-semibold" type="text" value={contact.city} />
+        <p className="font-bold text-xl pt-2">State: </p> <input className="mt-2 lg:w-[60%] w-[100%] bg-slate-100 rounded-lg pl-3 font-semibold" type="text" value={contact.state}/>
+        <p className="font-bold text-xl pt-2">Zip Code: </p> <input className="mt-2 lg:w-[60%] w-[100%] bg-slate-100 rounded-lg pl-3 font-semibold" type="text" value={contact.zipCode}/>
+        <p className="font-bold text-xl pt-2">Occupation: </p> <input className="mt-2 lg:w-[60%] w-[100%] bg-slate-100 rounded-lg pl-3 font-semibold" type="text" value={contact.occupation}/>
+        </div>
+        <button className="rounded-xl text-xl font-bold mx-5 bg-purple-600 py-2 px-5 text-black hover:bg-purple-700">Submit</button>
+      </div>
+
+    </EditModal>
+    </Fragment>
   );
 };
 
