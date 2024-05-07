@@ -36,7 +36,14 @@ app.use(cors())
                   // GET REQUESTS
 
 //HOMEPAGE GET - returns Welcome Home on page
-app.get("/", (req, res) => res.send("Welcome Home!"));
+app.get("/", async (req, res) => {
+  try {
+    const result = await Contact.find();
+    res.send({ contacts: result });
+  } catch (error) {
+    res.status(500).json({ error: "There was an error that occured" });
+  }
+});
 
 // GET SINGULAR CONTACT - returns one contact by their ID
 app.get("/api/contacts/:id", async (req, res) => {
@@ -64,9 +71,6 @@ app.get("/api/contacts", async (req, res) => {
 });
 
                     // POST REQUESTS
-
-//HOMEPAGE POST - Dummy POST req
-app.post("/", (req, res) => res.send("This is POST requesssst"));
 
 //POST REQ for individual contact
 app.post("/api/contacts", async (req, res) => {
