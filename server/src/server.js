@@ -15,23 +15,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
 
-const people = [
-  { name: "John", industry: "Tech" },
-  { name: "Jessica", industry: "Hairstylist" },
-  { name: "Matt", industry: "Sports" },
-];
+// const people = [
+//   { name: "John", industry: "Tech" },
+//   { name: "Jessica", industry: "Hairstylist" },
+//   { name: "Matt", industry: "Sports" },
+// ];
 
-const contact = new Contact({
-  firstName: "John",
-  lastName: "Jacobson",
-  phoneNumber: "555-555-5555",
-  email: "john@email.com",
-  street: "123 Fake Street",
-  city: "New York",
-  state: "NY",
-  zipCode: "11111",
-  occupation: "Software Engineer",
-});
+// const contact = new Contact({
+//   firstName: "John",
+//   lastName: "Jacobson",
+//   phoneNumber: "555-555-5555",
+//   email: "john@email.com",
+//   street: "123 Fake Street",
+//   city: "New York",
+//   state: "NY",
+//   zipCode: "11111",
+//   occupation: "Software Engineer",
+// });
 
                   // GET REQUESTS
 

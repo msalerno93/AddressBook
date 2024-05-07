@@ -16,7 +16,7 @@ const AddContact = () => {
 
   const postNewContact = async (e) => {
     e.preventDefault();
-    const url = `http://localhost:3005/api/contacts`;
+    const url = "http://localhost:3005/api/contacts";
     const contact = {
       firstName,
       lastName,
