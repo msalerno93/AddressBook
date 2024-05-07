@@ -5,7 +5,7 @@ const cors = require("cors")
 const dotenv = require("dotenv");
 dotenv.config();
 
-const PORT = process.env.PORT;
+
 const connectionString = process.env.MONGOOSE_URL;
 
 
@@ -115,8 +115,8 @@ const startServer = async () => {
     await mongoose.connect(connectionString);
     console.log("Connected to MongoDB");
 
-    app.listen(PORT, () =>
-      console.log(`Example app listening on port ${PORT}!`)
+    app.listen(3005, () =>
+      console.log(`Example app listening on port 3005!`)
     );
   } catch (error) {
     console.log(error.message);
